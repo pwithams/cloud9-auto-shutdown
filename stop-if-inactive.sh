@@ -65,13 +65,13 @@ main() {
     fi
 
     if is_shutting_down; then
-        if [[ ! $SHUTDOWN_TIMEOUT =~ ^[0-9]+$ ]] || is_vfs_connected || is_sh_connected; then
+        if [[ ! $SHUTDOWN_TIMEOUT =~ ^[0-9]+$ ]] || is_vfs_connected || is_ssh_connected; then
             shutdown_status="shutdown cancelled"
             sudo shutdown -c
         else
             shutdown_status="current scheduled shutdown is still valid"
         fi
-    elif [[ $SHUTDOWN_TIMEOUT =~ ^[0-9]+$ ]] && ! is_vfs_connected && ! is_sh_connected; then
+    elif [[ $SHUTDOWN_TIMEOUT =~ ^[0-9]+$ ]] && ! is_vfs_connected && ! is_ssh_connected; then
         shutdown_status="shutdown scheduled"
         sudo shutdown -h $SHUTDOWN_TIMEOUT
     else
